@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://iamshm:iamshm@wedevcluster.4jshd.mongodb.net/WeDevDb?retryWrites=true&w=majority"
+}
