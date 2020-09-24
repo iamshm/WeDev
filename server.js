@@ -2,10 +2,8 @@ const express = require("express");
 const connectDB = require("./config/db");
 
 const app = express();
-//adding to check,:
 //connecting DB
 connectDB();
-
 // Init midleware
 app.use(express.json({ extended: false }));
 
