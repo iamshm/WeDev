@@ -9,7 +9,7 @@
 7. For registerising User we have to check if user already exists
 8. if new user we will encrypt password using bcrypt and then save it to mongoDB
 9. Then provide a token to the user(It can be a new user or existing user)
-   a. We will then use user-id to provide token
+   a. We will then use user-id to provide token /
    b. To create a token which can be then send to a authorized route, we have to create it usinq `jwt.sign()` we will send
    `user.id` as payload
    c. Then we use that token for our middleware(in middleware we are just decrypting the token and assigning `req.user`
