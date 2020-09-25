@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 
 const app = express();
+//jnfvjdnvjf
 //connecting DB
 connectDB();
 // Init midleware
