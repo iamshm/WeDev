@@ -20,8 +20,10 @@
 
 ```
 Login/Register Summary
-if its a new user, first it is saved to database and then it is given a token which is then decoded ny middleware and
+-> if its a new user, first it is saved to database and
+then it is given a token which is then decoded ny middleware and
 then authorized by auth route for access its details.
-if its an existing user, it's credential are validated and then a token is provided to him/her and then decoded then
+-> if its an existing user, it's credential are validated and
+then a token is provided to him/her and then decoded then
 authorized by auth route to access its details
 ```
