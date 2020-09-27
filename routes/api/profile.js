@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const { check, validationResult } = require("express-validator");
+
 // @route  GET api/profile/me
 // @desc   Get current users profile
 // @access Private
@@ -107,7 +108,26 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.log(err.msg);
     res.status(500).send("Server error");
-    /* handle error */
+  }
+});
+
+// @route  GET api/profile/user/:user_id
+// @desc   Get Profile by user id
+// @access Public
+router.get("/user/:user_id", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate("user", ["name", "avatar"]);
+    if (!profile) {
+      return res.status(500).json({ msg: "Profile not found" });
+    }
+    return res.json(profile);
+  } catch (err) {
+    console.log(err.msg);
+    if (err.kind == "ObjectId")
+      return res.status(500).json({ msg: "Profile not found" });
+    res.status(500).send("Server error");
   }
 });
 module.exports = router;

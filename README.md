@@ -27,3 +27,10 @@ then authorized by auth route for access its details.
 then a token is provided to him/her and then decoded then
 authorized by auth route to access its details
 ```
+
+12. Create 'Profile' model using mongoose and mongoDB schema \
+    a. Then create `profile.js`. It will have multiple routes. \
+    b. Route for creating a profile. \
+    c. Route for getting all profiles. \
+    d. Rote for getting current user profile. \
+    e. Route for getting profile by user id. \
