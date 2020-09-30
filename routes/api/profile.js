@@ -196,7 +196,7 @@ router.put(
 		try {
 			let profile = await Profile.findOne({ user: req.user.id });
 			profile.experience.unshift(newExp);
-			profile.save();
+			await profile.save();
 			return res.status(200).json(profile);
 		} catch (err) {
 			console.error(err.message);
@@ -223,4 +223,72 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 	}
 });
 
+// @route  PUT api/profile/education
+// @desc    Add education to profile
+// @access Private
+router.put(
+	'/education',
+	[
+		auth,
+		[
+			check('school', 'School is Required').not().isEmpty(),
+			check('degree', 'Degree is Required').not().isEmpty(),
+			check('fieldOfStudy', 'Field of Study is Required').not().isEmpty(),
+			check('from', 'From Date is Required').not().isEmpty(),
+		],
+	],
+	async (req, res) => {
+		const errorsFromValidator = validationResult(req);
+		if (!errorsFromValidator) {
+			return res
+				.status(400)
+				.json({ errors: errorsFromValidator.array() });
+		}
+		const {
+			school,
+			degree,
+			fieldOfStudy,
+			from,
+			to,
+			current,
+			description,
+		} = req.body;
+		const newEdu = {
+			school,
+			degree,
+			fieldOfStudy,
+			from,
+			to,
+			current,
+			description,
+		};
+		try {
+			let profile = await Profile.findOne({ user: req.user.id });
+			profile.education.unshift(newEdu);
+			await profile.save();
+			return res.status(200).json(profile);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500);
+		}
+	}
+);
+
+// @route  DELETE api/profile/education/:edu_id
+// @desc   Deletd education from profile
+// @access Private
+router.delete('/education/:edu_id', auth, async (req, res) => {
+	try {
+		let profile = await Profile.findOne({ user: req.user.id });
+		const removeIndex = profile.education
+			.map((item) => item.id)
+			.indexOf(req.params.edu_id);
+		profile.experience.splice(removeIndex, 1);
+		await profile.save();
+		res.status(200).json(profile);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
 module.exports = router;
