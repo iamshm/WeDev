@@ -1,4 +1,6 @@
 {
-  "mongoURI": "mongodb+srv://iamshm:iamshm@wedevcluster.4jshd.mongodb.net/WeDevDb?retryWrites=true&w=majority",
-  "jwtSecret": "myJwtSecretToken"
+	"mongoURI": "mongodb+srv://iamshm:iamshm@wedevcluster.4jshd.mongodb.net/WeDevDb?retryWrites=true&w=majority",
+	"jwtSecret": "myJwtSecretToken",
+	"githubClientId": "48bebcdd330c4915c079",
+	"githubClientSecret": "c96aac4dc0e6b603488cd35d081139778f4bdd0b"
 }
