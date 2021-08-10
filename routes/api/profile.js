@@ -16,7 +16,7 @@ router.get('/me', auth, async (req, res) => {
 			user: req.user.id,
 		}).populate('user', ['name', 'avatar']);
 		if (!profile) {
-			res.status(400).send({ msg: 'User has No Profile' });
+			res.status(400).json({ msg: 'User has No Profile' });
 		}
 		res.json(profile);
 	} catch (err) {
@@ -172,7 +172,7 @@ router.put(
 	],
 	async (req, res) => {
 		const errorsFromValidator = validationResult(req);
-		if (!errorsFromValidator) {
+		if (!errorsFromValidator.isEmpty()) {
 			return res
 				.status(400)
 				.json({ errors: errorsFromValidator.array() });
@@ -241,7 +241,7 @@ router.put(
 	],
 	async (req, res) => {
 		const errorsFromValidator = validationResult(req);
-		if (!errorsFromValidator) {
+		if (!errorsFromValidator.isEmpty()) {
 			return res
 				.status(400)
 				.json({ errors: errorsFromValidator.array() });
@@ -285,7 +285,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 		const removeIndex = profile.education
 			.map((item) => item.id)
 			.indexOf(req.params.edu_id);
-		profile.experience.splice(removeIndex, 1);
+		profile.education.splice(removeIndex, 1);
 		await profile.save();
 		res.status(200).json(profile);
 	} catch (err) {
@@ -294,7 +294,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 	}
 });
 
-// @route  GET api/profile//github/:username
+// @route  GET api/profile/github/:username
 // @desc   Get reposiritories from Github
 // @access Public
 router.get('/github/:username', async (req, res) => {

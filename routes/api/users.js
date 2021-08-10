@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+
 // @route  POST api/users
 // @desc   Register user
 // @access Public
@@ -33,6 +34,7 @@ router.post(
           .status(400)
           .json({ errors: [{ msg: "User already exists" }] });
       }
+
       //Get users Gravatar
       const avatar = gravatar.url(email, {
         s: "200",
@@ -46,10 +48,14 @@ router.post(
         avatar,
         password,
       });
+
       //Encrypt pass
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
+
+      //save user
       await user.save();
+
       //Return JWT token
       const payload = {
         user: {

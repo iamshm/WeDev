@@ -10,7 +10,7 @@ const connectDB = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log("Mongo COnnected");
+    console.log("Mongo Connected bois");
   } catch (err) {
     console.error(err.message);
     process.exit(1);
